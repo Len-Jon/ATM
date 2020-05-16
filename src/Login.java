@@ -29,9 +29,9 @@ public class Login extends JFrame implements ActionListener {
         setLayout(new BorderLayout());
 
         jPanel.setLayout(new GridLayout(4, 1));
-        jPanel.add(new Label("请输入卡号"));
+        jPanel.add(new JLabel("请输入卡号"));
         jPanel.add(jTextField);
-        jPanel.add(new Label("请输入密码"));
+        jPanel.add(new JLabel("请输入密码"));
         jPanel.add(jPasswordField);
 
         add(jPanel, BorderLayout.CENTER);
