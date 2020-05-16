@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 /**
  * @author wei
@@ -156,6 +157,51 @@ public class Menu extends JFrame {
             desktop.add(new JLabel());
             desktop.validate();
 
+        });
+        update.addActionListener(e -> {
+            JPanel input = new JPanel();
+
+            JLabel jLabel = new JLabel("请输入6位数新密码");
+            JPasswordField jPasswordField = new JPasswordField();
+            JButton jButton = new JButton("确认");
+
+            jButton.addActionListener(x -> {
+                String s = String.valueOf(jPasswordField.getPassword());
+                if (s.length() != 6) {
+                    System.out.println(s);
+                    JOptionPane.showMessageDialog(Main.menu, "密码非法！");
+                }
+                else {
+                    Main.account.setPwd(s);
+                    JOptionPane.showMessageDialog(Main.menu, "改密成功");
+                    clear();
+                }
+            });
+            input.setLayout(new GridLayout(3, 3));
+            input.add(new JLabel());
+            input.add(jLabel);
+            input.add(new JLabel());
+            input.add(new JLabel());
+            input.add(jPasswordField);
+            input.add(new JLabel());
+            input.add(new JLabel());
+            input.add(jButton);
+            input.add(new JLabel());
+
+            desktop.removeAll();
+            desktop.setLayout(new GridLayout(4, 1));
+            desktop.add(new JLabel());
+
+            desktop.add(input);
+            desktop.add(new JLabel());
+            desktop.add(new JLabel());
+            desktop.validate();
+
+        });
+        exit.addActionListener(e -> {
+            JOptionPane.showMessageDialog(null, "请记得取走您的银行卡");
+            Main.menu.dispose();
+            Login login = new Login();
         });
     }
 }
