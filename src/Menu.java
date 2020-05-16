@@ -18,6 +18,7 @@ public class Menu extends JFrame {
     static JButton exit = new JButton("退卡");
 
     public Menu() {
+        super("菜单");
         desktop = new JPanel();
         renew();
         clear();

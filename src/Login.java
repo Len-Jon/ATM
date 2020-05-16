@@ -71,6 +71,7 @@ public class Login extends JFrame implements ActionListener {
             //如果监听到的按钮登出
             JOptionPane.showMessageDialog(null, "确认退出！");
             dispose();
+            System.exit(0);
         }
         if (e.getSource() == login) {
             //检查卡号是否正确
