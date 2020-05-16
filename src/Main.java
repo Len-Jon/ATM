@@ -4,10 +4,12 @@
  */
 public class Main {
     public static Account account = new Account();
+    public static Menu menu;
 
     public static void main(String[] args) {
-        account.setCard("62170033");
-        account.setPwd("123456");
+        account.setCard("");
+        account.setPwd("");
+        account.setMoney(50000);
         Login login = new Login();
     }
 }

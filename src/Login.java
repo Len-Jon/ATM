@@ -75,9 +75,10 @@ public class Login extends JFrame implements ActionListener {
         if (e.getSource() == login) {
             //检查卡号是否正确
             if (Main.account.getCard().equals(jTextField.getText())) {
-                System.out.println("get");
                 if(Arrays.equals(Main.account.getPwd().toCharArray(), jPasswordField.getPassword())){
                     JOptionPane.showMessageDialog(this, "登陆成功");
+                    Main.menu = new Menu();
+                    setVisible(false);
                 }
                 else {
                     System.out.println(Main.account.getPwd());
