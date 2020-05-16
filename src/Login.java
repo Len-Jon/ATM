@@ -28,11 +28,16 @@ public class Login extends JFrame implements ActionListener {
         logout = new JButton("退出");
         setLayout(new BorderLayout());
 
-        jPanel.setLayout(new GridLayout(4, 1));
+        //用空标签填充
+        jPanel.setLayout(new GridLayout(8, 1));
+        jPanel.add(new JLabel());
+        jPanel.add(new JLabel());
         jPanel.add(new JLabel("请输入卡号"));
         jPanel.add(jTextField);
         jPanel.add(new JLabel("请输入密码"));
         jPanel.add(jPasswordField);
+        jPanel.add(new JLabel());
+        jPanel.add(new JLabel());
 
         add(jPanel, BorderLayout.CENTER);
         add(login, BorderLayout.WEST);
@@ -72,16 +77,16 @@ public class Login extends JFrame implements ActionListener {
             if (Main.account.getCard().equals(jTextField.getText())) {
                 System.out.println("get");
                 if(Arrays.equals(Main.account.getPwd().toCharArray(), jPasswordField.getPassword())){
-                    System.out.println("登陆成功");
+                    JOptionPane.showMessageDialog(this, "登陆成功");
                 }
                 else {
                     System.out.println(Main.account.getPwd());
                     System.out.println(jPasswordField.getPassword());
-                    System.out.println("密码不正确");
+                    JOptionPane.showMessageDialog(this, "密码错误");
                 }
             }
             else{
-                System.out.println("账号不正确");
+                JOptionPane.showMessageDialog(this, "卡号不正确");
             }
         }
     }

@@ -7,10 +7,12 @@ public class Account {
     private int id;
     private String card;
     private String pwd;
+    private int money;
 
     public int getId() {
         return id;
     }
+
 
     public void setId(int id) {
         this.id = id;
@@ -31,4 +33,13 @@ public class Account {
     public void setPwd(String pwd) {
         this.pwd = pwd;
     }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
 }
