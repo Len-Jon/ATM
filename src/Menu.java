@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -17,7 +19,7 @@ public class Menu extends JFrame {
     static JButton update = new JButton("改密");
     static JButton exit = new JButton("退卡");
 
-    public Menu() {
+    public Menu() throws IOException {
         super("菜单");
         desktop = new JPanel();
         renew();
@@ -29,9 +31,11 @@ public class Menu extends JFrame {
         add(left, BorderLayout.WEST);
         add(right, BorderLayout.EAST);
         add(desktop, BorderLayout.CENTER);
-        setBounds(0, 0, 500, 500);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+
+        setBounds(0, 0, 500, 500);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         validate();
         setVisible(true);
     }
@@ -70,7 +74,7 @@ public class Menu extends JFrame {
         desktop.validate();
     }
 
-    static void addL() {
+    static void addL() throws IOException {
         select.addActionListener(e -> {
             desktop.removeAll();
             desktop.setLayout(new GridLayout(2, 1));
@@ -92,6 +96,12 @@ public class Menu extends JFrame {
                     JOptionPane.showMessageDialog(Main.menu, "请输入100的倍数");
                 } else {
                     Main.account.setMoney(Main.account.getMoney() + m);
+                    JOptionPane.showMessageDialog(Main.menu, "存钱成功");
+                    try {
+                        Account.renew();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     clear();
                 }
             });
@@ -132,6 +142,11 @@ public class Menu extends JFrame {
                     if (Main.account.getMoney() > m) {
                         Main.account.setMoney(Main.account.getMoney() - m);
                         JOptionPane.showMessageDialog(Main.menu, "取款成功");
+                        try {
+                            Account.renew();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
                         clear();
                     } else {
                         JOptionPane.showMessageDialog(Main.menu, "余额不足");
@@ -169,13 +184,18 @@ public class Menu extends JFrame {
             jButton.addActionListener(x -> {
                 String s = String.valueOf(jPasswordField.getPassword());
                 if (s.length() != 6) {
-                    System.out.println(s);
                     JOptionPane.showMessageDialog(Main.menu, "密码非法！");
-                }
-                else {
+                } else {
                     Main.account.setPwd(s);
                     JOptionPane.showMessageDialog(Main.menu, "改密成功");
                     clear();
+                    try {
+                        Account.renew();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                    Main.menu.dispose();
+                    new Login();
                 }
             });
             input.setLayout(new GridLayout(3, 3));
@@ -199,10 +219,53 @@ public class Menu extends JFrame {
             desktop.validate();
 
         });
+        post.addActionListener(e -> {
+            JPanel input = new JPanel();
+
+            JLabel jLabel1 = new JLabel("目标账户");
+            JTextField jTextField1 = new JTextField();
+            JLabel jLabel2 = new JLabel("转账金额");
+            JTextField jTextField2 = new JTextField();
+            JButton jButton = new JButton("转账");
+
+            jButton.addActionListener(x -> {
+
+            });
+            input.setLayout(new GridLayout(5, 3));
+            input.add(new JLabel());
+            input.add(jLabel1);
+            input.add(new JLabel());
+
+
+            input.add(new JLabel());
+            input.add(jTextField1);
+            input.add(new JLabel());
+
+            input.add(new JLabel());
+            input.add(jLabel2);
+            input.add(new JLabel());
+
+            input.add(new JLabel());
+            input.add(jTextField2);
+            input.add(new JLabel());
+
+            input.add(new JLabel());
+            input.add(jButton);
+            input.add(new JLabel());
+
+            desktop.removeAll();
+            desktop.setLayout(new GridLayout(4, 1));
+            desktop.add(new JLabel());
+            desktop.add(input);
+            desktop.add(new JLabel());
+            desktop.add(new JLabel());
+            desktop.validate();
+        });
         exit.addActionListener(e -> {
+            System.out.println("exit");
             JOptionPane.showMessageDialog(null, "请记得取走您的银行卡");
             Main.menu.dispose();
-            Login login = new Login();
+            new Login();
         });
     }
 }

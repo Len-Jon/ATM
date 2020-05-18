@@ -1,9 +1,12 @@
+import java.io.IOException;
+import java.io.Serializable;
+
 /**
  * @author wei
  * @since 2020/5/16 19:24
  * Bean对象为以后的数据库操作拓展提供实体类
  */
-public class Account {
+public class Account implements Serializable {
     private int id;
     private String card;
     private String pwd;
@@ -42,4 +45,14 @@ public class Account {
         this.money = money;
     }
 
+    public static void renew() throws IOException {
+        for (int i = 0; i < FileIO.list.size(); i++) {
+            if (FileIO.list.get(i).getId() == Main.account.getId()) {
+                FileIO.list.remove(i);
+                FileIO.list.add(Main.account);
+                break;
+            }
+        }
+        FileIO.Write();
+    }
 }

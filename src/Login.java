@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -60,6 +61,7 @@ public class Login extends JFrame implements ActionListener {
         jPasswordField.addKeyListener(keyAdapter);
 
         setBounds(0, 0, 500, 500);
+        setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         validate();
         setVisible(true);
@@ -74,22 +76,34 @@ public class Login extends JFrame implements ActionListener {
             System.exit(0);
         }
         if (e.getSource() == login) {
-            //检查卡号是否正确
-            if (Main.account.getCard().equals(jTextField.getText())) {
-                if(Arrays.equals(Main.account.getPwd().toCharArray(), jPasswordField.getPassword())){
-                    JOptionPane.showMessageDialog(this, "登陆成功");
-                    Main.menu = new Menu();
-                    setVisible(false);
+            //效率可预见的低
+            for (Account account : FileIO.list) {
+                //检查卡号是否正确
+                if (jTextField.getText().equals(account.getCard())) {
+                    Main.account.setId(account.getId());
+                    Main.account.setCard(account.getCard());
+                    Main.account.setMoney(account.getMoney());
+                    Main.account.setPwd(account.getPwd());
+                    if (Arrays.equals(Main.account.getPwd().toCharArray(), jPasswordField.getPassword())) {
+                        JOptionPane.showMessageDialog(this, "登陆成功");
+                        try {
+                            Main.menu = new Menu();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                        setVisible(false);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "密码错误");
+                    }
+                    return;
+
                 }
-                else {
-                    System.out.println(Main.account.getPwd());
-                    System.out.println(jPasswordField.getPassword());
-                    JOptionPane.showMessageDialog(this, "密码错误");
-                }
+
+
             }
-            else{
-                JOptionPane.showMessageDialog(this, "卡号不正确");
-            }
+
+            JOptionPane.showMessageDialog(this, "卡号不正确");
+
         }
     }
 }
