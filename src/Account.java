@@ -45,6 +45,7 @@ public class Account implements Serializable {
         this.money = money;
     }
 
+    //刷新用户信息
     public static void renew() throws IOException {
         for (int i = 0; i < FileIO.list.size(); i++) {
             if (FileIO.list.get(i).getId() == Main.account.getId()) {

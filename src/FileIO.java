@@ -20,12 +20,12 @@ public class FileIO {
             fl.createNewFile();
             Account account1 = new Account();
             account1.setId(1);
-            account1.setPwd("1");
-            account1.setCard("1");
+            account1.setPwd("123456");
+            account1.setCard("888888");
             account1.setMoney(50000);
             Account account2 = new Account();
             account2.setId(2);
-            account2.setPwd("2");
+            account2.setPwd("222222");
             account2.setCard("2");
             account2.setMoney(5000);
             list = new LinkedList<>();
