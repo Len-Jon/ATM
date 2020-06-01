@@ -249,7 +249,7 @@ public class Menu extends JFrame {
             //为按钮添加监听
             jButton.addActionListener(x -> {
                 int money = Integer.parseInt(jTextField2.getText());
-                if (money < Main.account.getMoney()) {
+                if (money > Main.account.getMoney()) {
                     JOptionPane.showMessageDialog(null, "余额不足");
                 } else if (money < 0) {
                     JOptionPane.showMessageDialog(null, "金额非法");
